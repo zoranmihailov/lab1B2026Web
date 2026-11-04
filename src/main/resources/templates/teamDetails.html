@@ -33,8 +33,9 @@
     <h2 th:text="'City: '+${team.city}"></h2>
     <h2>Players in this team:</h2>
     <ul th:unless="${team.players.isEmpty()}">
-        <li th:each="player : ${players}"
-            th:text="${player.firstName+' '+${player.lastName}+' (#'+${player.jerseyNumber}+', '+${player.position}+')'}"></li>
+        <li th:each="player : ${team.players}"
+            th:text="${player.firstName} + ' ' + ${player.lastName}
+                 + ' (#' + ${player.jerseyNumber} + ', ' + ${player.position} + ')'"></li>
     </ul>
     <!-- Show "No players yet" if the team has no players -->
 
