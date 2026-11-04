@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Add Player to Team</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        section {
+            float: left;
+            margin: 0 1.5%;
+            width: 63%;
+        }
+        aside {
+            float: right;
+            margin: 0 1.5%;
+            width: 30%;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Select the Player to add to the Team</h1>
+</header>
+<!-- Display the errorMessage here (only if it exists), using the "error" class -->
+
+<p class="error" th:if="${errorMessage != null}" th:text="${errorMessage}"></p>
+
+<section>
+    <h2>Select player:</h2>
+    <form action="/teamDetails" method="POST">
+        <!-- Hidden field with the selected teamId -->
+        <input type="hidden" th:name="teamId" th:value="${team.id}">
+
+        <div th:each="player : ${players}">
+            <label>
+                <input type="radio" name="playerId" th:value="${player.playerId}">
+                <span th:text="${player.firstName} + ' ' + ${player.lastName}
+                               + ' (#' + ${player.jerseyNumber} + ', ' + ${player.position} + ')'"></span>
+            </label>
+        </div>
+        <!-- Dynamically display radio buttons for each player,
+             the value should be the playerId
+             and the displayed text should be:
+             <firstName> <lastName> (#<jerseyNumber>, <position>) -->
+        <br/>
+        <input type="submit" value="Add player">
+    </form>
+</section>
+<aside>
+    <table>
+        <tr>
+            <td><b>Team ID</b></td>
+            <td th:text="${team.id}"></td>
+        </tr>
+        <tr>
+            <td><b>Team Name</b></td>
+            <td th:text="${team.name}"></td>
+        </tr>
+        <tr>
+            <td><b>City</b></td>
+            <td th:text="${team.city}"></td>
+        </tr>
+    </table>
+</aside>
+</body>
+</html>

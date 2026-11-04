@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Team Manager - Choose a Team</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to the Team Manager</h1>
+</header>
+<main>
+    <h2>Choose a team:</h2>
+    <form action="/players" method="GET">
+
+        <div th:each="team : ${teams}">
+            <label>
+                <input type="radio" name="teamId" th:value="${team.id}" required>
+                <span th:text="'Name: ' + ${team.name} + ', City: ' + ${team.city}
+                               + ', Players: ' + ${team.players.size()}"></span>
+            </label>
+        </div>
+        <br>
+        <!-- Display radio buttons for each team,
+             the value should be the team id
+             and the displayed text should be:
+             Name: <name>, City: <city>, Players: <number of players> -->
+
+        <input type="submit" value="Submit">
+    </form>
+</main>
+</body>
+</html>

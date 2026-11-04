@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Team Details</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px;
+            margin: 5px 0;
+            background-color: #f5f5f5;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+<!-- Dynamically display data -->
+<header>
+    <h1 th:text="'Team: '+${team.name}"></h1>
+</header>
+<section>
+    <h2 th:text="'City: '+${team.city}"></h2>
+    <h2>Players in this team:</h2>
+    <ul th:unless="${team.players.isEmpty()}">
+        <li th:each="player : ${players}"
+            th:text="${player.firstName+' '+${player.lastName}+' (#'+${player.jerseyNumber}+', '+${player.position}+')'}"></li>
+    </ul>
+    <!-- Show "No players yet" if the team has no players -->
+
+    <p th:if="${team.players.isEmpty()}">No players yet</p>
+
+    <p>
+        <a th:href="@{/players(teamId=${team.id})}">Add another player</a> |
+        <a th:href="@{/teams}">Back to teams</a>
+    </p>
+</section>
+</body>
+</html>
